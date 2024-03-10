@@ -13,12 +13,13 @@ export const db = mysql.createConnection({
 
 // Create a MySQL connection pool using environment variables
 const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    acquireTimeout: 60000 // Set acquire timeout to 60 seconds
+  connectionLimit: 10,
+  host: "roundhouse.proxy.rlwy.net",
+  port: 30141,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  acquireTimeout: 60000 // Set acquire timeout to 60 seconds
 });
 
 // Alter the MySQL user if needed
