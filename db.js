@@ -1,14 +1,16 @@
-import mysql from "mysql";
+import mysql from "mysql2";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 // Create a MySQL connection using environment variables
 export const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+  connectionLimit: 10,
+  host: 'roundhouse.proxy.rlwy.net',
+  port: 30141,
+  user: process.env.MYSQLUSER || process.env.MYSQL_USER,
+  password: process.env.MYSQLPASSWORD || process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE
 });
 
 // Create a MySQL connection pool using environment variables
