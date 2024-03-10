@@ -1,4 +1,4 @@
-import mysql from "mysql2";
+import mysql from "mysql";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -24,7 +24,6 @@ const pool = mysql.createPool({
   acquireTimeout: 60000 // Set acquire timeout to 60 seconds
 });
 
-// Alter the MySQL user if needed
 pool.getConnection((err, connection) => {
     if (err) {
         throw err;
