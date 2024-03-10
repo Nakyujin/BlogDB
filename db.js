@@ -1,16 +1,23 @@
 import mysql from "mysql";
 import dotenv from "dotenv";
 
-// Load environment variables from .env file
 dotenv.config();
 
-// Create a MySQL connection using environment variables
-export const db = mysql.createConnection(process.env.DATABASE_URL);
+export const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+});
 
-// Create a MySQL connection pool using environment variables
-const pool = mysql.createPool(process.env.DATABASE_URL);
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+});
 
-// Alter the MySQL user if needed
 pool.getConnection((err, connection) => {
     if (err) {
         throw err;
