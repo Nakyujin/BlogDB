@@ -2,11 +2,12 @@
 import mysql from "mysql";
 
 const dbConfig = {
-    host: "142ea3db60a8de72c9bad5104fe37c55",
-    user: "5db2e2c143966a09398cd0f75e3532c0",
-    password: "253414796f98b92ecd92330bd125c596",
-    database: "577ea0df49e53d99dedf75fcc8645753"
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE
 };
+
 
 const pool = mysql.createPool(dbConfig);
 
