@@ -3,28 +3,38 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+// Create a MySQL connection using environment variables
+export const db = mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
+});
+
+// Create a MySQL connection pool using environment variables
 const pool = mysql.createPool({
-    connectionLimit: 10, 
+    connectionLimit: 10,
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    acquireTimeout: 60000 // Timeout set to 60 seconds
+    acquireTimeout: 60000 // Set acquire timeout to 60 seconds
 });
 
+// Alter the MySQL user if needed
 pool.getConnection((err, connection) => {
     if (err) {
         throw err;
     }
-  
+
     connection.query(`ALTER USER '${process.env.DB_USER}'@'${process.env.DB_HOST}' IDENTIFIED WITH mysql_native_password BY '${process.env.DB_PASSWORD}'`, (err, result) => {
         if (err) {
             throw err;
         }
         console.log('User altered successfully');
-  
+
         connection.release();
-  
+
         pool.end((err) => {
             if (err) {
                 throw err;
